@@ -6,7 +6,7 @@ public class GroupMeHandler extends BaseHandler
 {
   public void handle(GroupMeRequest request) {
     logger.info("Received GroupMe Request: " + request.getAvatar() + " : " + request.getText());
-    GroupMeResponse groupMeResponse = new GroupMeResponse(botId, request.getAvatar());
+    GroupMeResponse groupMeResponse = new GroupMeResponse(botId, request.getText());
     String finalResponse = restTemplate.postForObject(url, groupMeResponse, String.class);
     if (finalResponse != null)
     {

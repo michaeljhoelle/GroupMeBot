@@ -6,34 +6,22 @@ import java.util.List;
 
 public class GroupMeRequest
 {
-  public List<Object> attachments;
-  public String avatar;
+  public String name;
   public String text;
+  public String senderType;
 
   public GroupMeRequest(){}
 
-  @JsonProperty("attachments")
-  public List<Object> getAttachments()
+  @JsonProperty("name")
+  public String getName()
   {
-    return this.attachments;
+    return this.name;
   }
 
-  @JsonProperty("attachments")
-  public void setAttachments(List<Object> attachments)
+  @JsonProperty("name")
+  public void setName(String name)
   {
-    this.attachments = attachments;
-  }
-
-  @JsonProperty("avatar_url")
-  public String getAvatar()
-  {
-    return this.avatar;
-  }
-
-  @JsonProperty("avatar_url")
-  public void setAvatar(String avatar)
-  {
-    this.avatar = avatar;
+    this.name = name;
   }
 
   @JsonProperty("text")
@@ -46,5 +34,17 @@ public class GroupMeRequest
   public void setText(String text)
   {
     this.text = text;
+  }
+
+  @JsonProperty("sender_type")
+  public String getSenderType()
+  {
+    return this.senderType;
+  }
+
+  @JsonProperty("sender_type")
+  public void setSenderType(String senderType)
+  {
+    this.senderType = senderType;
   }
 }

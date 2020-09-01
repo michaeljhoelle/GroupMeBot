@@ -5,13 +5,16 @@ import com.hoellem.groupmebot.http.BaseHandler;
 public class GroupMeHandler extends BaseHandler
 {
   public void handle(GroupMeRequest request) {
-    logger.info("Received GroupMe Request: " + request.getAvatar() + " : " + request.getText());
-    GroupMeResponse groupMeResponse = new GroupMeResponse(botId, request.getText());
-    String finalResponse = restTemplate.postForObject(url, groupMeResponse, String.class);
-    if (finalResponse != null)
+    logger.info("Read GroupMe message from + " + request.getSenderType() + " " + request.getName() + ": " + request.getText());
+
+    if (request.senderType.equals("user"))
     {
-      logger.info(finalResponse);
+      String responseText = "Generic Response Text";
+      GroupMeResponse groupMeResponse = new GroupMeResponse(botId, request.getText());
+      restTemplate.postForObject(url, groupMeResponse, String.class);
+      logger.info("Responded with: " + responseText);
     }
+
   }
 
 }

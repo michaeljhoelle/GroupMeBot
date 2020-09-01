@@ -8,6 +8,7 @@ public class GroupMeRequest
 {
   public List<Object> attachments;
   public String avatar;
+  public String text;
 
   public GroupMeRequest(){}
 
@@ -33,5 +34,17 @@ public class GroupMeRequest
   public void setAvatar(String avatar)
   {
     this.avatar = avatar;
+  }
+
+  @JsonProperty("text")
+  public String getText()
+  {
+    return this.text;
+  }
+
+  @JsonProperty("text")
+  public void setText(String text)
+  {
+    this.text = text;
   }
 }

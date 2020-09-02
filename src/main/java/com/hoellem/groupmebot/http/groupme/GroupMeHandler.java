@@ -4,6 +4,7 @@ import com.hoellem.groupmebot.http.BaseHandler;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -52,26 +53,34 @@ public class GroupMeHandler extends BaseHandler
   private String fetchFeetPic(String name)
   {
     String feetUrl = "https://www.wikifeet.com/" + name.replace(" ", "_");
-
     HttpEntity<String> httpEntity = new HttpEntity<>(feetUrl, headers);
     RestTemplate freshRestTemplate = new RestTemplate();
 
-    ResponseEntity<String> response = (freshRestTemplate.exchange(feetUrl, HttpMethod.GET, httpEntity, String.class));
-    List<String> pidList = new ArrayList<>();
-    if (response.getBody() != null)
+    try
     {
-      Pattern pidPattern = Pattern.compile("\"pid\": ?(\\d+),", Pattern.MULTILINE);
-      Matcher matcher = pidPattern.matcher(response.getBody());
-      while (matcher.find())
+      ResponseEntity<String> response = freshRestTemplate.exchange(feetUrl, HttpMethod.GET, httpEntity, String.class);
+
+
+      List<String> pidList = new ArrayList<>();
+      if (response.getBody() != null)
       {
-        pidList.add(matcher.group(1));
+        Pattern pidPattern = Pattern.compile("\"pid\": ?(\\d+),", Pattern.MULTILINE);
+        Matcher matcher = pidPattern.matcher(response.getBody());
+        while (matcher.find())
+        {
+          pidList.add(matcher.group(1));
+        }
+        if (!pidList.isEmpty())
+        {
+          Random random = new Random();
+          String pid = pidList.get(random.nextInt(pidList.size()));
+          return "https://pics.wikifeet.com/" + name.replace(" ", "-") + "-feet-" + pid + ".jpg";
+        }
       }
-      if (!pidList.isEmpty())
-      {
-        Random random = new Random();
-        String pid = pidList.get(random.nextInt(pidList.size()));
-        return "https://pics.wikifeet.com/" + name.replace(" ", "-") +  "-feet-" + pid + ".jpg";
-      }
+    }
+    catch (HttpClientErrorException exception)
+    {
+      logger.error(exception.getStatusCode().toString() + " for " + feetUrl);
     }
     return null;
   }

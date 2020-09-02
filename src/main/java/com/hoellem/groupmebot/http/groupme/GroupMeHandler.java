@@ -4,6 +4,7 @@ import com.hoellem.groupmebot.http.BaseHandler;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,11 @@ public class GroupMeHandler extends BaseHandler
     {
       String responseText = processText(request.getText());
       GroupMeResponse groupMeResponse = new GroupMeResponse(botId, responseText);
-      restTemplate.postForObject(url, groupMeResponse, String.class);
+      logger.info("Posting " + groupMeResponse.toString() + " to " + url);
+      HttpEntity<GroupMeResponse> groupMePost = new HttpEntity<>(groupMeResponse, headers);
+
+      ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, groupMePost, String.class);
+      logger.info("Got " + response.getBody() + " back from GroupMe");
       logger.info("Responded with: " + responseText);
     }
 
@@ -50,8 +55,9 @@ public class GroupMeHandler extends BaseHandler
     logger.info("Attempting to retrieve wiki page");
 
     HttpEntity<String> httpEntity = new HttpEntity<>(feetUrl, headers);
+    RestTemplate freshRestTemplate = new RestTemplate();
 
-    ResponseEntity<String> response = (restTemplate.exchange(feetUrl, HttpMethod.GET, httpEntity, String.class));
+    ResponseEntity<String> response = (freshRestTemplate.exchange(feetUrl, HttpMethod.GET, httpEntity, String.class));
     List<String> pidList = new ArrayList<>();
     if (response.getBody() != null)
     {

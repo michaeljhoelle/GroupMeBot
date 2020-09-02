@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class BaseHandler
 {
-  protected static final String url = "http://api.groupme.com/v3/bots/post";
+  protected static final String url = "https://api.groupme.com/v3/bots/post";
   protected static final String botId = "18751eb77b6a71d764ddfd1101";
   protected static final Logger logger = LoggerFactory.getLogger(GroupMeBotApplication.class);
   protected final HttpHeaders headers;

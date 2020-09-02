@@ -25,4 +25,9 @@ public class GroupMeResponse
     return text;
   }
 
+  public String toString()
+  {
+    return "{bot_id:" + botId + ", text:" + text + "}";
+  }
+
 }

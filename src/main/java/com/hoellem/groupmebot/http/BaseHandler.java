@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 public class BaseHandler
 {
   protected static final String url = "https://api.groupme.com/v3/bots/post";
-  protected static final String botId = "18751eb77b6a71d764ddfd1101";
+  protected static final String botId = "7db4c25232ca10324e5935b037";
   protected static final Logger logger = LoggerFactory.getLogger(GroupMeBotApplication.class);
   protected final HttpHeaders headers;
   protected final RestTemplate restTemplate;

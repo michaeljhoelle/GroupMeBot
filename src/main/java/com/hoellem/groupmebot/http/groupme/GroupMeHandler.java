@@ -22,13 +22,13 @@ public class GroupMeHandler extends BaseHandler
     if (request.senderType.equals("user"))
     {
       String responseText = processText(request.getText());
-      GroupMeResponse groupMeResponse = new GroupMeResponse(botId, responseText);
-      logger.info("Posting " + groupMeResponse.toString() + " to " + url);
-      HttpEntity<GroupMeResponse> groupMePost = new HttpEntity<>(groupMeResponse, headers);
-
-      ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, groupMePost, String.class);
-      logger.info("Got " + response.getBody() + " back from GroupMe");
-      logger.info("Responded with: " + responseText);
+      if (responseText != null)
+      {
+        GroupMeResponse groupMeResponse = new GroupMeResponse(botId, responseText);
+        logger.info("Posting " + groupMeResponse.toString());
+        HttpEntity<GroupMeResponse> groupMePost = new HttpEntity<>(groupMeResponse, headers);
+        restTemplate.exchange(url, HttpMethod.POST, groupMePost, String.class);
+      }
     }
 
   }
@@ -52,7 +52,6 @@ public class GroupMeHandler extends BaseHandler
   private String fetchFeetPic(String name)
   {
     String feetUrl = "https://www.wikifeet.com/" + name.replace(" ", "_");
-    logger.info("Attempting to retrieve wiki page");
 
     HttpEntity<String> httpEntity = new HttpEntity<>(feetUrl, headers);
     RestTemplate freshRestTemplate = new RestTemplate();

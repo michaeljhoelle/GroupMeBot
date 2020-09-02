@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.regex.Pattern;
+
 @RestController
 public class Responder
 {
   private static final Logger logger = LoggerFactory.getLogger(GroupMeBotApplication.class);
+  private static final Pattern pattern = Pattern.compile("^/\\w+ ", Pattern.MULTILINE);
 
   @GetMapping("/error")
   public ErrorResponse error()
@@ -24,9 +27,12 @@ public class Responder
   @PostMapping("/groupme")
   public BaseHandlerResponse groupMePost(@RequestBody GroupMeRequest request)
   {
-    logger.info("Responding to GroupMe");
-    GroupMeHandler handler = new GroupMeHandler();
-    handler.handle(request);
+    if (pattern.matcher(request.getText()).find())
+    {
+      logger.info("Responding to GroupMe");
+      GroupMeHandler handler = new GroupMeHandler();
+      handler.handle(request);
+    }
     return new BaseHandlerResponse("OK");
   }
 }

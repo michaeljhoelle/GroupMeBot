@@ -1,4 +1,4 @@
-package com.hoellem.diceroll;
+package com.hoellem.groupmebot;
 
 public class ErrorResponse
 {

@@ -1,4 +1,4 @@
-package com.hoellem.diceroll;
+package com.hoellem.groupmebot;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

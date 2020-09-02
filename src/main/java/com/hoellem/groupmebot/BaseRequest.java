@@ -1,11 +1,11 @@
-package com.hoellem.diceroll;
+package com.hoellem.groupmebot;
 
-public class BotRequest
+public class BaseRequest
 {
   public String bot_id;
   public String text;
 
-  public BotRequest(String botId, String text)
+  public BaseRequest(String botId, String text)
   {
     this.bot_id = botId;
     this.text = text;

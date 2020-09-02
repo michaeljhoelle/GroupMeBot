@@ -1,6 +1,9 @@
 package com.hoellem.groupmebot.http.groupme;
 
 import com.hoellem.groupmebot.http.BaseHandler;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,12 +48,15 @@ public class GroupMeHandler extends BaseHandler
   {
     String feetUrl = "https://www.wikifeet.com/" + name.replace(" ", "_");
     logger.info("Attempting to retrieve wiki page");
-    String rawHtml = (restTemplate.getForObject(feetUrl, String.class));
+
+    HttpEntity<String> httpEntity = new HttpEntity<>(feetUrl, headers);
+
+    ResponseEntity<String> response = (restTemplate.exchange(feetUrl, HttpMethod.GET, httpEntity, String.class));
     List<String> pidList = new ArrayList<>();
-    if (rawHtml != null)
+    if (response.getBody() != null)
     {
       Pattern pidPattern = Pattern.compile("\"pid\": ?(\\d+),", Pattern.MULTILINE);
-      Matcher matcher = pidPattern.matcher(rawHtml);
+      Matcher matcher = pidPattern.matcher(response.getBody());
       while (matcher.find())
       {
         pidList.add(matcher.group(1));

@@ -15,7 +15,6 @@ public class GroupMeHandler extends BaseHandler
   public void handle(GroupMeRequest request) {
     logger.info("Read GroupMe message from " + request.getSenderType() + " " + request.getName() + ": " + request.getText());
 
-
     if (request.senderType.equals("user"))
     {
       String responseText = processText(request.getText());
@@ -45,6 +44,7 @@ public class GroupMeHandler extends BaseHandler
   private String fetchFeetPic(String name)
   {
     String feetUrl = "https://www.wikifeet.com/" + name.replace(" ", "_");
+    logger.info("Attempting to retrieve wiki page");
     String rawHtml = (restTemplate.getForObject(feetUrl, String.class));
     List<String> pidList = new ArrayList<>();
     if (rawHtml != null)

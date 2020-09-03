@@ -1,7 +1,7 @@
 package com.hoellem.groupmebot.http.groupme;
 
 import com.hoellem.groupmebot.GroupMeBotApplication;
-import com.hoellem.groupmebot.http.AppConfig;
+import com.hoellem.groupmebot.http.GroupMeConfig;
 import com.hoellem.groupmebot.http.HandlerMapper;
 import com.hoellem.groupmebot.http.RequestHandler;
 import org.slf4j.Logger;
@@ -18,13 +18,13 @@ public class GroupMeRouter
 {
   protected static final Logger logger = LoggerFactory.getLogger(GroupMeBotApplication.class);
   private HandlerMapper mapper;
-  private AppConfig appConfig;
+  private GroupMeConfig groupMeConfig;
   private RestTemplate restTemplate;
 
   @Autowired
-  public void setAppConfig(AppConfig appConfig)
+  public void setGroupMeConfig(GroupMeConfig groupMeConfig)
   {
-    this.appConfig = appConfig;
+    this.groupMeConfig = groupMeConfig;
   }
 
   @Autowired

@@ -6,19 +6,19 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
-@ConfigurationProperties(prefix = "bot")
-public class AppConfig
+@ConfigurationProperties(prefix = "groupme")
+public class GroupMeConfig
 {
-  private String id;
+  private String botId;
 
-  public String getId()
+  public String getBotId()
   {
-    return id;
+    return botId;
   }
 
-  public void setId(String id)
+  public void setBotId(String botId)
   {
-    this.id = id;
+    this.botId = botId;
   }
 
   @Bean

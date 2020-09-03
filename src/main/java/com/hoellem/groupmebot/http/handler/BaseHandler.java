@@ -1,7 +1,7 @@
 package com.hoellem.groupmebot.http.handler;
 
 import com.hoellem.groupmebot.GroupMeBotApplication;
-import com.hoellem.groupmebot.http.AppConfig;
+import com.hoellem.groupmebot.http.GroupMeConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class BaseHandler
 {
   protected static final Logger logger = LoggerFactory.getLogger(GroupMeBotApplication.class);
   protected static HttpHeaders headers;
-  protected AppConfig appConfig;
+  protected GroupMeConfig groupMeConfig;
   protected RestTemplate restTemplate;
 
   protected static final String url = "https://api.groupme.com/v3/bots/post";
@@ -32,9 +32,9 @@ public class BaseHandler
   }
 
   @Autowired
-  public void setAppConfig(AppConfig appConfig)
+  public void setAppConfig(GroupMeConfig groupMeConfig)
   {
-    this.appConfig = appConfig;
+    this.groupMeConfig = groupMeConfig;
   }
 
   @Autowired

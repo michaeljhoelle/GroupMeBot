@@ -3,7 +3,6 @@ package com.hoellem.groupmebot;
 import com.hoellem.groupmebot.http.HandlerMapper;
 import com.hoellem.groupmebot.http.groupme.GroupMeRouter;
 import com.hoellem.groupmebot.http.groupme.GroupMeRequest;
-import com.hoellem.groupmebot.http.groupme.GroupMeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,12 +50,11 @@ public class Responder
   }
 
   @PostMapping("/groupme")
-  public GroupMeResponse groupMePost(@RequestBody GroupMeRequest request)
+  public void groupMePost(@RequestBody GroupMeRequest request)
   {
     if (pattern.matcher(request.getText()).find())
     {
       groupMeRouter.handle(request);
     }
-    return new GroupMeResponse("N/A", "Sample Text");
   }
 }

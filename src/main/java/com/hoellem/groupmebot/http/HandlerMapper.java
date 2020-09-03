@@ -1,6 +1,5 @@
 package com.hoellem.groupmebot.http;
 
-import com.hoellem.groupmebot.BaseRequest;
 import com.hoellem.groupmebot.GroupMeBotApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +18,7 @@ public class HandlerMapper
   protected static final Logger logger = LoggerFactory.getLogger(GroupMeBotApplication.class);
   private HttpHeaders headers;
   private RestTemplate restTemplate;
-  private AppConfig config;
+  private GroupMeConfig config;
   private HandlerConfig handlerConfig;
 
   @Autowired
@@ -35,15 +34,9 @@ public class HandlerMapper
   }
 
   @Autowired
-  public void setConfig(AppConfig config)
+  public void setConfig(GroupMeConfig config)
   {
     this.config = config;
-  }
-
-  @Autowired
-  public HandlerMapper()
-  {
-    System.out.println("Constructing HandlerMapper Bean");
   }
 
   public Map<String, RequestHandler> getHandlers()

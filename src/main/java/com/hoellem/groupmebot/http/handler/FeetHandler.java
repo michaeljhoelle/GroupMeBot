@@ -1,18 +1,11 @@
 package com.hoellem.groupmebot.http.handler;
 
-import com.hoellem.groupmebot.GroupMeBotApplication;
-import com.hoellem.groupmebot.http.AppConfig;
 import com.hoellem.groupmebot.http.RequestHandler;
 import com.hoellem.groupmebot.http.groupme.GroupMeRequest;
 import com.hoellem.groupmebot.http.groupme.GroupMeResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
@@ -32,7 +25,7 @@ public class FeetHandler extends BaseHandler implements RequestHandler
       String responseText = processText(request.getText());
       if (responseText != null)
       {
-        GroupMeResponse groupMeResponse = new GroupMeResponse(appConfig.getId(), responseText);
+        GroupMeResponse groupMeResponse = new GroupMeResponse(groupMeConfig.getBotId(), responseText);
         logger.info("Posting " + groupMeResponse.toString());
         HttpEntity<GroupMeResponse> groupMePost = new HttpEntity<>(groupMeResponse, headers);
         restTemplate.exchange(url, HttpMethod.POST, groupMePost, String.class);

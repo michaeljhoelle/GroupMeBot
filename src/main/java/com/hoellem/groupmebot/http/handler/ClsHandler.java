@@ -11,7 +11,7 @@ public class ClsHandler extends BaseHandler implements RequestHandler
   @Override
   public void handle(GroupMeRequest request)
   {
-    GroupMeResponse groupMeResponse = new GroupMeResponse(appConfig.getId(), fetchClearingText());
+    GroupMeResponse groupMeResponse = new GroupMeResponse(groupMeConfig.getBotId(), fetchClearingText());
     logger.info("Posting " + groupMeResponse.toString());
     HttpEntity<GroupMeResponse> groupMePost = new HttpEntity<>(groupMeResponse, headers);
     restTemplate.exchange(url, HttpMethod.POST, groupMePost, String.class);

@@ -2,23 +2,11 @@ package com.hoellem.groupmebot;
 
 public class BaseRequest
 {
-  public String bot_id;
   public String text;
 
   public BaseRequest(String botId, String text)
   {
-    this.bot_id = botId;
     this.text = text;
-  }
-
-  public void setBotId(String botId)
-  {
-    this.bot_id = botId;
-  }
-
-  public String getBotId()
-  {
-    return this.bot_id;
   }
 
   public void setText(String text)

@@ -1,10 +1,10 @@
 package com.hoellem.groupmebot;
 
-import com.hoellem.groupmebot.http.BaseHandlerResponse;
-import com.hoellem.groupmebot.http.groupme.GroupMeHandler;
+import com.hoellem.groupmebot.http.HandlerMapper;
+import com.hoellem.groupmebot.http.groupme.GroupMeRouter;
 import com.hoellem.groupmebot.http.groupme.GroupMeRequest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.hoellem.groupmebot.http.groupme.GroupMeResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,8 +15,28 @@ import java.util.regex.Pattern;
 @RestController
 public class Responder
 {
-  private static final Logger logger = LoggerFactory.getLogger(GroupMeBotApplication.class);
-  private static final Pattern pattern = Pattern.compile("^/\\w+ ", Pattern.MULTILINE);
+  private HandlerMapper handlerMapper;
+  private GroupMeRouter groupMeRouter;
+
+  @Autowired
+  private Responder(HandlerMapper handlerMapper)
+  {
+    this.handlerMapper = handlerMapper;
+  }
+
+  @Autowired
+  public void setHandlerMapper(HandlerMapper handlerMapper)
+  {
+    this.handlerMapper = handlerMapper;
+  }
+
+  @Autowired
+  public void setGroupMeHandler(GroupMeRouter groupMeRouter)
+  {
+    this.groupMeRouter = groupMeRouter;
+  }
+
+  private static final Pattern pattern = Pattern.compile("^/\\w+", Pattern.MULTILINE);
 
   @GetMapping("/error")
   public ErrorResponse error()
@@ -24,15 +44,19 @@ public class Responder
     return new ErrorResponse();
   }
 
+  @GetMapping("/testing")
+  public String test()
+  {
+    return handlerMapper.handle();
+  }
+
   @PostMapping("/groupme")
-  public BaseHandlerResponse groupMePost(@RequestBody GroupMeRequest request)
+  public GroupMeResponse groupMePost(@RequestBody GroupMeRequest request)
   {
     if (pattern.matcher(request.getText()).find())
     {
-      logger.info("Responding to GroupMe");
-      GroupMeHandler handler = new GroupMeHandler();
-      handler.handle(request);
+      groupMeRouter.handle(request);
     }
-    return new BaseHandlerResponse("OK");
+    return new GroupMeResponse("N/A", "Sample Text");
   }
 }

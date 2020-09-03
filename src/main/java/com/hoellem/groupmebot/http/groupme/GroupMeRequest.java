@@ -6,9 +6,9 @@ import java.util.List;
 
 public class GroupMeRequest
 {
-  public String name;
-  public String text;
-  public String senderType;
+  private String name;
+  private String text;
+  private String senderType;
 
   public GroupMeRequest(){}
 

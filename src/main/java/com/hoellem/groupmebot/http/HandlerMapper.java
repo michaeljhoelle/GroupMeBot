@@ -1,6 +1,7 @@
 package com.hoellem.groupmebot.http;
 
 import com.hoellem.groupmebot.GroupMeBotApplication;
+import com.hoellem.groupmebot.http.groupme.GroupMeConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.hoellem.groupmebot.http.handler;
 
 import com.hoellem.groupmebot.GroupMeBotApplication;
-import com.hoellem.groupmebot.http.GroupMeConfig;
+import com.hoellem.groupmebot.http.groupme.GroupMeConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +22,6 @@ public class BaseHandler
 
   protected static final String url = "https://api.groupme.com/v3/bots/post";
   protected static final Pattern parameterPattern = Pattern.compile(" (.+)", Pattern.MULTILINE);
-  protected static final Pattern feetPattern = Pattern.compile("^/feet ", Pattern.MULTILINE);
-  protected static final Pattern clsPattern = Pattern.compile("^/cls3", Pattern.MULTILINE);
 
   public BaseHandler()
   {

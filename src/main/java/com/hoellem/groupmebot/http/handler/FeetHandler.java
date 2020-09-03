@@ -7,7 +7,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,48 +21,52 @@ public class FeetHandler extends BaseHandler implements RequestHandler
   {
     if (request.getSenderType().equals("user"))
     {
-      String responseText = processText(request.getText());
-      if (responseText != null)
-      {
-        GroupMeResponse groupMeResponse = new GroupMeResponse(groupMeConfig.getBotId(), responseText);
-        logger.info("Posting " + groupMeResponse.toString());
-        HttpEntity<GroupMeResponse> groupMePost = new HttpEntity<>(groupMeResponse, headers);
-        restTemplate.exchange(url, HttpMethod.POST, groupMePost, String.class);
-      }
+      String responseText = generateResponse(request.getText());
+      String fullResponse = responseText != null ? responseText : "No results ¯\\_(ツ)_/¯";
+      GroupMeResponse groupMeResponse = new GroupMeResponse(groupMeConfig.getBotId(), fullResponse);
+      HttpEntity<GroupMeResponse> groupMePost = new HttpEntity<>(groupMeResponse, headers);
+      restTemplate.exchange(url, HttpMethod.POST, groupMePost, String.class);
+      logger.info("Posted " + groupMeResponse.toString());
     }
   }
 
-  private String processText(String text)
+  private String generateResponse(String text)
   {
-    if (feetPattern.matcher(text).find())
+    Matcher matcher = parameterPattern.matcher(text);
+    String response;
+    if (matcher.find())
     {
-      Matcher matcher = parameterPattern.matcher(text);
-      if (matcher.find())
+      String name = matcher.group(1);
+      logger.info("Parameter: " + name);
+      response = fetchFeetPic(name);
+      if (response == null)
       {
-        String name = matcher.group(1);
-        logger.info("Parameter: " + name);
-        return fetchFeetPic(name);
+        name = searchPeople(name);
+        if (name != null)
+        {
+          response = fetchFeetPic(name);
+        }
       }
     }
-    return null;
+    else
+    {
+      response = "Sorry, random feet pics not available yet";
+    }
+    return response;
   }
 
   private String fetchFeetPic(String name)
   {
     String feetUrl = "https://www.wikifeet.com/" + name.replace(" ", "_");
     HttpEntity<String> httpEntity = new HttpEntity<>(feetUrl, headers);
-    RestTemplate freshRestTemplate = new RestTemplate();
 
     try
     {
-      ResponseEntity<String> response = freshRestTemplate.exchange(feetUrl, HttpMethod.GET, httpEntity, String.class);
-
-
-      List<String> pidList = new ArrayList<>();
+      ResponseEntity<String> response = restTemplate.exchange(feetUrl, HttpMethod.GET, httpEntity, String.class);
       if (response.getBody() != null)
       {
-        Pattern pidPattern = Pattern.compile("\"pid\": ?(\\d+),", Pattern.MULTILINE);
-        Matcher matcher = pidPattern.matcher(response.getBody());
+        List<String> pidList = new ArrayList<>();
+        Matcher matcher = Pattern.compile("\"pid\": ?(\\d+),", Pattern.MULTILINE).matcher(response.getBody());
         while (matcher.find())
         {
           pidList.add(matcher.group(1));
@@ -73,6 +76,30 @@ public class FeetHandler extends BaseHandler implements RequestHandler
           Random random = new Random();
           String pid = pidList.get(random.nextInt(pidList.size()));
           return "https://pics.wikifeet.com/" + name.replace(" ", "-") + "-feet-" + pid + ".jpg";
+        }
+      }
+    }
+    catch (HttpClientErrorException exception)
+    {
+      logger.error(exception.getStatusCode().toString() + " for " + feetUrl);
+    }
+    return null;
+  }
+
+  private String searchPeople(String name)
+  {
+    String feetUrl = "https://www.wikifeet.com/search/" + name.replace(" ", "%20");
+    HttpEntity<String> httpEntity = new HttpEntity<>(feetUrl, headers);
+
+    try
+    {
+      ResponseEntity<String> response = restTemplate.exchange(feetUrl, HttpMethod.GET, httpEntity, String.class);
+      if (response.getBody() != null)
+      {
+        Matcher matcher = Pattern.compile("a href=\"/([^\"]+)\"", Pattern.MULTILINE).matcher(response.getBody());
+        if (matcher.find())
+        {
+          return matcher.group(1);
         }
       }
     }

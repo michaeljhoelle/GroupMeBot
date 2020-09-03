@@ -1,4 +1,4 @@
-package com.hoellem.groupmebot.http;
+package com.hoellem.groupmebot.http.groupme;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;

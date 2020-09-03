@@ -1,7 +1,6 @@
 package com.hoellem.groupmebot.http.groupme;
 
 import com.hoellem.groupmebot.GroupMeBotApplication;
-import com.hoellem.groupmebot.http.GroupMeConfig;
 import com.hoellem.groupmebot.http.HandlerMapper;
 import com.hoellem.groupmebot.http.RequestHandler;
 import org.slf4j.Logger;

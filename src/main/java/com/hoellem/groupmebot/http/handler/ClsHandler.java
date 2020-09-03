@@ -19,6 +19,6 @@ public class ClsHandler extends BaseHandler implements RequestHandler
 
   private String fetchClearingText()
   {
-    return "A".repeat(10).concat("\n").repeat(80);
+    return "A".repeat(15).concat("\n").repeat(60);
   }
 }

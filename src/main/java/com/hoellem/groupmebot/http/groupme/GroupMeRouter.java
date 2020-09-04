@@ -24,11 +24,14 @@ public class GroupMeRouter
   }
 
   public void handle(GroupMeRequest request) {
-    RequestHandler handler = getHandler(request.getText());
-    if (handler != null)
+    if (request.getSenderType().equals("user"))
     {
-      logger.info("\n" + request.getName() + ": " + request.getText());
-      handler.handle(request);
+      RequestHandler handler = getHandler(request.getText());
+      if (handler != null)
+      {
+        logger.info("\n" + request.getName() + ": " + request.getText());
+        handler.handle(request);
+      }
     }
   }
 

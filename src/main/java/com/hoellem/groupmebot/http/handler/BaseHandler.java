@@ -3,10 +3,13 @@ package com.hoellem.groupmebot.http.handler;
 import com.hoellem.groupmebot.GroupMeBotApplication;
 import com.hoellem.groupmebot.http.groupme.GroupMeApiInterface;
 import com.hoellem.groupmebot.http.groupme.GroupMeConfig;
+import com.hoellem.groupmebot.http.groupme.GroupMeResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -45,6 +48,17 @@ public class BaseHandler
   public void setRestTemplate(RestTemplate restTemplate)
   {
     this.restTemplate = restTemplate;
+  }
+
+  protected void sendGroupMeMessage(String text)
+  {
+    if (text != null)
+    {
+      GroupMeResponse groupMeResponse = new GroupMeResponse(groupMeConfig.getBotId(), text);
+      HttpEntity<GroupMeResponse> groupMePost = new HttpEntity<>(groupMeResponse, headers);
+      restTemplate.exchange(botPostUrl, HttpMethod.POST, groupMePost, String.class);
+      logger.info("Posted " + groupMeResponse.toString());
+    }
   }
 
 }

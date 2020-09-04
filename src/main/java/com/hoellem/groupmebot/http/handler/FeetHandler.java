@@ -21,15 +21,9 @@ public class FeetHandler extends BaseHandler implements RequestHandler
   @Override
   public void handle(GroupMeRequest request)
   {
-    if (request.getSenderType().equals("user"))
-    {
-      String responseText = generateResponse(request.getText());
-      String fullResponse = responseText != null ? responseText : "No results ¯\\_(ツ)_/¯";
-      GroupMeResponse groupMeResponse = new GroupMeResponse(groupMeConfig.getBotId(), fullResponse);
-      HttpEntity<GroupMeResponse> groupMePost = new HttpEntity<>(groupMeResponse, headers);
-      restTemplate.exchange(botPostUrl, HttpMethod.POST, groupMePost, String.class);
-      logger.info("Posted " + groupMeResponse.toString());
-    }
+    String responseText = generateResponse(request.getText());
+    String fullResponse = responseText != null ? responseText : "No results ¯\\_(ツ)_/¯";
+    sendGroupMeMessage(fullResponse);
   }
 
   private String generateResponse(String text)

@@ -18,6 +18,7 @@ public class HandlerConfig
     handlerMap.put("^/feet\\b", handlerBuilder.feetHandler());
     handlerMap.put("^/cls3\\b", handlerBuilder.clsHandler());
     handlerMap.put("^is (it|today) ", handlerBuilder.dayHandler());
+    handlerMap.put("^/suffer\\b", handlerBuilder.sufferHandler());
   }
 
   public Map<String, RequestHandler> getHandlerMap()

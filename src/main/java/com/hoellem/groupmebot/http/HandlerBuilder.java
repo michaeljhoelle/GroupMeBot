@@ -3,6 +3,7 @@ package com.hoellem.groupmebot.http;
 import com.hoellem.groupmebot.http.handler.DayHandler;
 import com.hoellem.groupmebot.http.handler.ClsHandler;
 import com.hoellem.groupmebot.http.handler.FeetHandler;
+import com.hoellem.groupmebot.http.handler.SufferHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,5 +26,11 @@ public class HandlerBuilder
   public DayHandler dayHandler()
   {
     return new DayHandler();
+  }
+
+  @Bean
+  SufferHandler sufferHandler()
+  {
+    return new SufferHandler();
   }
 }

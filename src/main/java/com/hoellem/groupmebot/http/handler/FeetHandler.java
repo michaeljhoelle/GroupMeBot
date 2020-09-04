@@ -16,6 +16,8 @@ import java.util.regex.Pattern;
 
 public class FeetHandler extends BaseHandler implements RequestHandler
 {
+  private static final Pattern parameterPattern = Pattern.compile(" (.+)", Pattern.MULTILINE);
+
   @Override
   public void handle(GroupMeRequest request)
   {
@@ -25,7 +27,7 @@ public class FeetHandler extends BaseHandler implements RequestHandler
       String fullResponse = responseText != null ? responseText : "No results ¯\\_(ツ)_/¯";
       GroupMeResponse groupMeResponse = new GroupMeResponse(groupMeConfig.getBotId(), fullResponse);
       HttpEntity<GroupMeResponse> groupMePost = new HttpEntity<>(groupMeResponse, headers);
-      restTemplate.exchange(url, HttpMethod.POST, groupMePost, String.class);
+      restTemplate.exchange(botPostUrl, HttpMethod.POST, groupMePost, String.class);
       logger.info("Posted " + groupMeResponse.toString());
     }
   }

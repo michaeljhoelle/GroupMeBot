@@ -1,5 +1,6 @@
 package com.hoellem.groupmebot.http;
 
+import com.hoellem.groupmebot.http.handler.DayHandler;
 import com.hoellem.groupmebot.http.handler.ClsHandler;
 import com.hoellem.groupmebot.http.handler.FeetHandler;
 import org.springframework.context.annotation.Bean;
@@ -18,5 +19,11 @@ public class HandlerBuilder
   public ClsHandler clsHandler()
   {
     return new ClsHandler();
+  }
+
+  @Bean
+  public DayHandler dayHandler()
+  {
+    return new DayHandler();
   }
 }

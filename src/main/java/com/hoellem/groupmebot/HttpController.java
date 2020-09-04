@@ -21,8 +21,6 @@ public class HttpController
     this.groupMeRouter = groupMeRouter;
   }
 
-  private static final Pattern pattern = Pattern.compile("^/\\w+", Pattern.MULTILINE);
-
   @GetMapping("/error")
   public ErrorResponse error()
   {
@@ -32,9 +30,6 @@ public class HttpController
   @PostMapping("/groupme")
   public void groupMePost(@RequestBody GroupMeRequest request)
   {
-    if (pattern.matcher(request.getText()).find())
-    {
-      groupMeRouter.handle(request);
-    }
+    groupMeRouter.handle(request);
   }
 }

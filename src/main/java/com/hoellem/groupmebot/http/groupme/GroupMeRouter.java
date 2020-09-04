@@ -24,10 +24,10 @@ public class GroupMeRouter
   }
 
   public void handle(GroupMeRequest request) {
-    logger.info("Read GroupMe message from " + request.getSenderType() + " " + request.getName() + ": " + request.getText());
     RequestHandler handler = getHandler(request.getText());
     if (handler != null)
     {
+      logger.info("\n" + request.getName() + ": " + request.getText());
       handler.handle(request);
     }
   }

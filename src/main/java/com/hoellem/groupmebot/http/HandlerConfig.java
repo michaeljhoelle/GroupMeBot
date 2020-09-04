@@ -17,7 +17,7 @@ public class HandlerConfig
     handlerMap = new HashMap<>();
     handlerMap.put("^/feet\\b", handlerBuilder.feetHandler());
     handlerMap.put("^/cls3\\b", handlerBuilder.clsHandler());
-    handlerMap.put("^is (it|today) ", handlerBuilder.dayHandler());
+    handlerMap.put("^is (it|today) \\S+$", handlerBuilder.dayHandler());
     handlerMap.put("^/suffer\\b", handlerBuilder.sufferHandler());
   }
 

@@ -2,49 +2,68 @@ package com.hoellem.groupmebot.http.groupme;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.List;
-
 public class GroupMeRequest
 {
+  @JsonProperty("name")
   private String name;
+  @JsonProperty("text")
   private String text;
+  @JsonProperty("sender_type")
   private String senderType;
+  @JsonProperty("group_id")
+  private String groupId;
+  @JsonProperty("user_id")
+  private String userId;
 
   public GroupMeRequest(){}
 
-  @JsonProperty("name")
   public String getName()
   {
     return this.name;
   }
 
-  @JsonProperty("name")
   public void setName(String name)
   {
     this.name = name;
   }
 
-  @JsonProperty("text")
   public String getText()
   {
     return this.text;
   }
 
-  @JsonProperty("text")
   public void setText(String text)
   {
     this.text = text;
   }
 
-  @JsonProperty("sender_type")
   public String getSenderType()
   {
     return this.senderType;
   }
 
-  @JsonProperty("sender_type")
   public void setSenderType(String senderType)
   {
     this.senderType = senderType;
+  }
+
+  public String getGroupId()
+  {
+    return this.groupId;
+  }
+
+  public void setGroupId(String groupId)
+  {
+    this.groupId = groupId;
+  }
+
+  public String getUserId()
+  {
+    return userId;
+  }
+
+  public void setUserId(String userId)
+  {
+    this.userId = userId;
   }
 }

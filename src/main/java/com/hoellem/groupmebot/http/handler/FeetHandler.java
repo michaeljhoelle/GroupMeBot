@@ -29,24 +29,35 @@ public class FeetHandler extends BaseHandler implements RequestHandler
   private String generateResponse(String text)
   {
     Matcher matcher = parameterPattern.matcher(text);
-    String response;
+    String response = null, name;
     if (matcher.find())
     {
-      String name = matcher.group(1);
+      name = matcher.group(1);
       logger.info("Parameter: " + name);
-      response = fetchFeetPic(name);
-      if (response == null)
+      if (name.equalsIgnoreCase("top") || name.equalsIgnoreCase("popular"))
       {
-        name = searchPeople(name);
-        if (name != null)
+        Random random = new Random();
+        int page = (random.nextInt(20));
+        name = searchPeople("https://www.wikifeet.com/celebs?sort=most&page=" + page, true);
+      }
+      else
+      {
+        response = fetchFeetPic(name);
+        if (response == null)
         {
-          response = fetchFeetPic(name);
+          name = searchPeople("https://www.wikifeet.com/search/" + name.replace(" ", "%20"), false);
         }
       }
     }
     else
     {
-      response = "Sorry, random feet pics not available yet";
+      Random random = new Random();
+      int page = (random.nextInt(3828));
+      name = searchPeople("https://www.wikifeet.com/celebs?page=" + page, true);
+    }
+    if (name != null)
+    {
+      response = fetchFeetPic(name);
     }
     return response;
   }
@@ -82,17 +93,26 @@ public class FeetHandler extends BaseHandler implements RequestHandler
     return null;
   }
 
-  private String searchPeople(String name)
+  private String searchPeople(String url, boolean randomSearch)
   {
-    String feetUrl = "https://www.wikifeet.com/search/" + name.replace(" ", "%20");
-    HttpEntity<String> httpEntity = new HttpEntity<>(feetUrl, headers);
+    HttpEntity<String> httpEntity = new HttpEntity<>(url, headers);
 
     try
     {
-      ResponseEntity<String> response = restTemplate.exchange(feetUrl, HttpMethod.GET, httpEntity, String.class);
+      ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, httpEntity, String.class);
       if (response.getBody() != null)
       {
         Matcher matcher = Pattern.compile("a href=\"/([^\"]+)\"", Pattern.MULTILINE).matcher(response.getBody());
+        if (randomSearch)
+        {
+          ArrayList<String> personList = new ArrayList<>();
+          while (matcher.find())
+          {
+            personList.add(matcher.group(1));
+          }
+          Random random = new Random();
+          return personList.get(random.nextInt(personList.size()));
+        }
         if (matcher.find())
         {
           return matcher.group(1);
@@ -101,7 +121,7 @@ public class FeetHandler extends BaseHandler implements RequestHandler
     }
     catch (HttpClientErrorException exception)
     {
-      logger.error(exception.getStatusCode().toString() + " for " + feetUrl);
+      logger.error(exception.getStatusCode().toString() + " for " + url);
     }
     return null;
   }

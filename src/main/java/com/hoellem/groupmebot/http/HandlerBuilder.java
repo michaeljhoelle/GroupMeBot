@@ -1,9 +1,6 @@
 package com.hoellem.groupmebot.http;
 
-import com.hoellem.groupmebot.http.handler.DayHandler;
-import com.hoellem.groupmebot.http.handler.ClsHandler;
-import com.hoellem.groupmebot.http.handler.FeetHandler;
-import com.hoellem.groupmebot.http.handler.SufferHandler;
+import com.hoellem.groupmebot.http.handler.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -32,5 +29,11 @@ public class HandlerBuilder
   SufferHandler sufferHandler()
   {
     return new SufferHandler();
+  }
+
+  @Bean
+  TodoHandler todoHandler()
+  {
+    return new TodoHandler();
   }
 }

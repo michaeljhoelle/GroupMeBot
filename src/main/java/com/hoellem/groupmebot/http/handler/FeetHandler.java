@@ -23,7 +23,7 @@ public class FeetHandler extends BaseHandler implements RequestHandler
   {
     String responseText = generateResponse(request.getText());
     String fullResponse = responseText != null ? responseText : "No results ¯\\_(ツ)_/¯";
-    sendGroupMeMessage(fullResponse);
+    groupMeMessenger.sendGroupMeMessage(fullResponse);
   }
 
   private String generateResponse(String text)

@@ -2,9 +2,9 @@ package com.hoellem.groupmebot.http.handler;
 
 import com.hoellem.groupmebot.http.RequestHandler;
 import com.hoellem.groupmebot.http.groupme.GroupMeRequest;
-import com.hoellem.groupmebot.http.groupme.GroupMeResponse;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
+import com.hoellem.groupmebot.http.groupme.getgroup.FindGroupDetailsResponse;
+import com.hoellem.groupmebot.http.groupme.getgroup.GroupMember;
+import org.springframework.http.ResponseEntity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,12 +28,9 @@ public class DayHandler extends BaseHandler implements RequestHandler
       }
       else
       {
-        responseText = groupMeApiInterface.getUserFirstName(request.getUserId(), request.getGroupId()) + ", that's not even a valid day";
+        responseText = getUserFirstName(request.getUserId(), request.getGroupId()) + ", that's not even a valid day";
       }
-      GroupMeResponse groupMeResponse = new GroupMeResponse(groupMeConfig.getBotId(), responseText);
-      logger.info("Posting " + groupMeResponse.toString());
-      HttpEntity<GroupMeResponse> groupMePost = new HttpEntity<>(groupMeResponse, headers);
-      restTemplate.exchange(botPostUrl, HttpMethod.POST, groupMePost, String.class);
+      groupMeMessenger.sendGroupMeMessage(responseText);
     }
   }
 
@@ -54,5 +51,22 @@ public class DayHandler extends BaseHandler implements RequestHandler
     Date date = new Date();
     SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE");
     return text.equalsIgnoreCase(dateFormat.format(date));
+  }
+
+  public Object getUserFirstName(String userId, String groupId)
+  {
+    ResponseEntity<FindGroupDetailsResponse> response = groupMeMessenger.fetchGroupDetails(groupId);
+    if (response.getBody() != null && response.getBody().getGroupDetails() != null)
+    {
+      for (GroupMember member : response.getBody().getGroupDetails().getMembers())
+      {
+        if (member.getUserId().equalsIgnoreCase(userId))
+        {
+          return member.getName().split(" ")[0];
+        }
+      }
+      return response.getBody();
+    }
+    return "no";
   }
 }

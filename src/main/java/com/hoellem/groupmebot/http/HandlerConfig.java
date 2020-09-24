@@ -19,6 +19,7 @@ public class HandlerConfig
     handlerMap.put("^/cls3\\b", handlerBuilder.clsHandler());
     handlerMap.put("^is (it|today) \\S+$", handlerBuilder.dayHandler());
     handlerMap.put("^/suffer\\b", handlerBuilder.sufferHandler());
+    handlerMap.put("^/todo\\b", handlerBuilder.todoHandler());
   }
 
   public Map<String, RequestHandler> getHandlerMap()

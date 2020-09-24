@@ -7,7 +7,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -20,7 +19,7 @@ public class SufferHandler extends BaseHandler implements RequestHandler
 
   public void handle(GroupMeRequest request)
   {
-    sendGroupMeMessage(getImage());
+    groupMeMessenger.sendGroupMeMessage(getImage());
   }
   private String getImage()
   {

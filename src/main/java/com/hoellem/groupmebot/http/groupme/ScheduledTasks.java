@@ -16,7 +16,7 @@ public class ScheduledTasks
     this.userService = userService;
   }
 
-  @Scheduled(fixedRate = 86400000)
+  @Scheduled(fixedRate = 86400000, initialDelay = 3600000)
   public void dailyUpdate()
   {
     userService.updateGroupMeUsers();

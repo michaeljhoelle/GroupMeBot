@@ -19,7 +19,7 @@ public class SufferHandler extends BaseHandler implements RequestHandler
 
   public void handle(GroupMeRequest request)
   {
-    groupMeMessenger.sendGroupMeMessage(getImage());
+    messenger.sendGroupMeMessage(getImage());
   }
   private String getImage()
   {

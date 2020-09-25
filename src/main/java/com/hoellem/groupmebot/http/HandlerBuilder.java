@@ -36,4 +36,10 @@ public class HandlerBuilder
   {
     return new TodoHandler();
   }
+
+  @Bean
+  SubredditHandler subredditHandler()
+  {
+    return new SubredditHandler();
+  }
 }

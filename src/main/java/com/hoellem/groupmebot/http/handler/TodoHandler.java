@@ -27,11 +27,11 @@ public class TodoHandler extends BaseHandler implements RequestHandler
     if (matcher.find())
     {
       todoRepository.save(new Todo(request.getUserId(), matcher.group(1)));
-      groupMeMessenger.sendGroupMeMessage("Saved!");
+      messenger.sendGroupMeMessage("Saved!");
     }
     else
     {
-      groupMeMessenger.sendGroupMeMessage(formattedTodoList());
+      messenger.sendGroupMeMessage(formattedTodoList());
     }
   }
 

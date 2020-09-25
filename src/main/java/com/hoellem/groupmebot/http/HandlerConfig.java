@@ -20,6 +20,7 @@ public class HandlerConfig
     handlerMap.put("^is (it|today) \\S+$", handlerBuilder.dayHandler());
     handlerMap.put("^/suffer\\b", handlerBuilder.sufferHandler());
     handlerMap.put("^/todo\\b", handlerBuilder.todoHandler());
+    handlerMap.put("^r/\\w+$", handlerBuilder.subredditHandler());
   }
 
   public Map<String, RequestHandler> getHandlerMap()

@@ -19,7 +19,7 @@ public class BaseHandler
   protected static HttpHeaders headers;
   protected GroupMeConfig groupMeConfig;
   protected RestTemplate restTemplate;
-  protected GroupMeMessenger groupMeMessenger;
+  protected GroupMeMessenger messenger;
 
 
 
@@ -32,7 +32,7 @@ public class BaseHandler
   @Autowired
   public void setGroupMeApiInterface(GroupMeMessenger groupMeMessenger)
   {
-    this.groupMeMessenger = groupMeMessenger;
+    this.messenger = groupMeMessenger;
   }
 
   @Autowired

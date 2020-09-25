@@ -1,6 +1,7 @@
 package com.hoellem.groupmebot.http.groupme;
 
 import com.hoellem.groupmebot.GroupMeBotApplication;
+import com.hoellem.groupmebot.http.groupme.getgroup.FindAllGroupsResponse;
 import com.hoellem.groupmebot.http.groupme.getgroup.FindGroupDetailsResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,9 +47,15 @@ public class GroupMeMessenger
     }
   }
 
-  public ResponseEntity<FindGroupDetailsResponse> fetchGroupDetails(String groupId)
+  public ResponseEntity<FindGroupDetailsResponse> fetchGroupDetails(Integer groupId)
   {
     HttpEntity<String> httpEntity = new HttpEntity<>(baseUrl + groupsPath, headers);
-    return restTemplate.exchange(baseUrl + groupsPath + groupId, HttpMethod.GET, httpEntity, FindGroupDetailsResponse.class);
+    return restTemplate.exchange(baseUrl + groupsPath + "/" + groupId, HttpMethod.GET, httpEntity, FindGroupDetailsResponse.class);
+  }
+
+  public ResponseEntity<FindAllGroupsResponse> fetchAllGroupDetails(int page)
+  {
+    HttpEntity<String> httpEntity = new HttpEntity<>(baseUrl + groupsPath, headers);
+    return restTemplate.exchange(baseUrl + groupsPath + "?page=" + page, HttpMethod.GET, httpEntity, FindAllGroupsResponse.class);
   }
 }

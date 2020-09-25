@@ -2,7 +2,6 @@ package com.hoellem.groupmebot.http.handler;
 
 import com.hoellem.groupmebot.http.RequestHandler;
 import com.hoellem.groupmebot.http.groupme.GroupMeRequest;
-import com.hoellem.groupmebot.http.groupme.GroupMeResponse;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +22,7 @@ public class FeetHandler extends BaseHandler implements RequestHandler
   {
     String responseText = generateResponse(request.getText());
     String fullResponse = responseText != null ? responseText : "No results ¯\\_(ツ)_/¯";
-    groupMeMessenger.sendGroupMeMessage(fullResponse);
+    messenger.sendGroupMeMessage(fullResponse);
   }
 
   private String generateResponse(String text)

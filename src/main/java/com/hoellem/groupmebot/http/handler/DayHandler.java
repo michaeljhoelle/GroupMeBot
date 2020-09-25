@@ -30,7 +30,7 @@ public class DayHandler extends BaseHandler implements RequestHandler
       {
         responseText = getUserFirstName(request.getUserId(), request.getGroupId()) + ", that's not even a valid day";
       }
-      groupMeMessenger.sendGroupMeMessage(responseText);
+      messenger.sendGroupMeMessage(responseText);
     }
   }
 
@@ -55,7 +55,7 @@ public class DayHandler extends BaseHandler implements RequestHandler
 
   public Object getUserFirstName(Integer userId, Integer groupId)
   {
-    ResponseEntity<FindGroupDetailsResponse> response = groupMeMessenger.fetchGroupDetails(groupId);
+    ResponseEntity<FindGroupDetailsResponse> response = messenger.fetchGroupDetails(groupId);
     if (response.getBody() != null && response.getBody().getGroupDetails() != null)
     {
       for (GroupMember member : response.getBody().getGroupDetails().getMembers())

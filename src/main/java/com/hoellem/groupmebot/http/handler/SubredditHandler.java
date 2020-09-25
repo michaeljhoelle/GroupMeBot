@@ -3,16 +3,16 @@ package com.hoellem.groupmebot.http.handler;
 import com.hoellem.groupmebot.http.RequestHandler;
 import com.hoellem.groupmebot.http.groupme.GroupMeRequest;
 
-public class ClsHandler extends BaseHandler implements RequestHandler
+public class SubredditHandler extends BaseHandler implements RequestHandler
 {
   @Override
   public void handle(GroupMeRequest request)
   {
-    messenger.sendGroupMeMessage(fetchClearingText());
+    messenger.sendGroupMeMessage(cookUrl(request.getText()));
   }
 
-  private String fetchClearingText()
+  private String cookUrl(String subreddit)
   {
-    return "A".repeat(15).concat("\n").repeat(60);
+    return "https://www.reddit.com/" + subreddit;
   }
 }

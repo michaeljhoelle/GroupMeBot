@@ -1,4 +1,4 @@
-package com.hoellem.groupmebot.http.Entity;
+package com.hoellem.groupmebot.http.datasource.todo;
 
 import javax.persistence.*;
 
@@ -8,10 +8,9 @@ public class Todo
 {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "todo_id")
   private int id;
-  @Column(name = "groupme_user_id")
-  private String userId;
+  @Column(name = "user_id")
+  private Integer userId;
   private String entry;
 
   public Todo()
@@ -19,7 +18,7 @@ public class Todo
 
   }
 
-  public Todo(String userId, String entry)
+  public Todo(Integer userId, String entry)
   {
     this.userId = userId;
     this.entry = entry;
@@ -35,12 +34,12 @@ public class Todo
     return id;
   }
 
-  public void setUserId(String userId)
+  public void setUserId(Integer userId)
   {
     this.userId = userId;
   }
 
-  public String getUserId()
+  public Integer getUserId()
   {
     return userId;
   }

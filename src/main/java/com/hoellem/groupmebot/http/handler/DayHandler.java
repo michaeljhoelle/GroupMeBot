@@ -53,14 +53,14 @@ public class DayHandler extends BaseHandler implements RequestHandler
     return text.equalsIgnoreCase(dateFormat.format(date));
   }
 
-  public Object getUserFirstName(String userId, String groupId)
+  public Object getUserFirstName(Integer userId, Integer groupId)
   {
     ResponseEntity<FindGroupDetailsResponse> response = groupMeMessenger.fetchGroupDetails(groupId);
     if (response.getBody() != null && response.getBody().getGroupDetails() != null)
     {
       for (GroupMember member : response.getBody().getGroupDetails().getMembers())
       {
-        if (member.getUserId().equalsIgnoreCase(userId))
+        if (member.getUserId().equals(userId))
         {
           return member.getName().split(" ")[0];
         }

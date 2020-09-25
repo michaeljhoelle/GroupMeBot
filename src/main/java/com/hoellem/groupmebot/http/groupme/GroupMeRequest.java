@@ -11,9 +11,9 @@ public class GroupMeRequest
   @JsonProperty("sender_type")
   private String senderType;
   @JsonProperty("group_id")
-  private String groupId;
+  private Integer groupId;
   @JsonProperty("user_id")
-  private String userId;
+  private Integer userId;
 
   public GroupMeRequest(){}
 
@@ -47,22 +47,22 @@ public class GroupMeRequest
     this.senderType = senderType;
   }
 
-  public String getGroupId()
+  public Integer getGroupId()
   {
     return this.groupId;
   }
 
-  public void setGroupId(String groupId)
+  public void setGroupId(Integer groupId)
   {
     this.groupId = groupId;
   }
 
-  public String getUserId()
+  public Integer getUserId()
   {
     return userId;
   }
 
-  public void setUserId(String userId)
+  public void setUserId(Integer userId)
   {
     this.userId = userId;
   }

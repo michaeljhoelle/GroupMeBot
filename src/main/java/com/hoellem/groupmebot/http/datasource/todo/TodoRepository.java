@@ -1,9 +1,6 @@
-package com.hoellem.groupmebot.http.Crud;
+package com.hoellem.groupmebot.http.datasource.todo;
 
-import com.hoellem.groupmebot.http.Entity.Todo;
 import org.springframework.data.repository.CrudRepository;
-
-import java.util.List;
 
 public interface TodoRepository extends CrudRepository<Todo, Integer>
 {

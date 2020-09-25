@@ -5,16 +5,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class GroupMember
 {
   @JsonProperty("user_id")
-  private String userId;
+  private Integer userId;
   @JsonProperty("name")
   private String name;
+  @JsonProperty("nickname")
+  private String nickname;
 
-  public String getUserId()
+  public Integer getUserId()
   {
     return userId;
   }
 
-  public void setUserId(String userId)
+  public void setUserId(Integer userId)
   {
     this.userId = userId;
   }
@@ -27,5 +29,15 @@ public class GroupMember
   public void setName(String name)
   {
     this.name = name;
+  }
+
+  public String getNickname()
+  {
+    return nickname;
+  }
+
+  public void setNickname(String nickname)
+  {
+    this.nickname = nickname;
   }
 }

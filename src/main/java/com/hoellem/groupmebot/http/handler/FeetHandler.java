@@ -23,6 +23,7 @@ public class FeetHandler extends BaseHandler implements RequestHandler
     String responseText = generateResponse(request.getText());
     String fullResponse = responseText != null ? responseText : "No results ¯\\_(ツ)_/¯";
     messenger.sendGroupMeMessage(fullResponse);
+    userService.incrementFeetCount(request.getUserId());
   }
 
   private String generateResponse(String text)

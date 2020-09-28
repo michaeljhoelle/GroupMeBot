@@ -22,6 +22,8 @@ public class User
   private int id;
   private String name;
   private String nickname;
+  @Column(name = "feet_count")
+  private int feetCount;
 
   @ManyToMany
   @JoinTable(
@@ -71,6 +73,21 @@ public class User
   public void setNickname(String nickname)
   {
     this.nickname = nickname;
+  }
+
+  public int getFeetCount()
+  {
+    return feetCount;
+  }
+
+  public void setFeetCount(int feetCount)
+  {
+    this.feetCount = feetCount;
+  }
+
+  public void incrementFeetCount()
+  {
+    feetCount++;
   }
 
   public Set<Group> getGroups()

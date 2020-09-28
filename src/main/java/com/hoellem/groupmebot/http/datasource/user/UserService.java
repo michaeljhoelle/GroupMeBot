@@ -46,9 +46,6 @@ public class UserService
     this.groupMeMessenger = groupMeMessenger;
   }
 
-  @PersistenceContext
-  EntityManager entityManager;
-
   @Transactional
   public void updateGroupMeUsers() {
     int page = 1;
@@ -69,6 +66,12 @@ public class UserService
         }
       }
     }
+  }
+
+  @Transactional
+  public void incrementFeetCount(int userId)
+  {
+    userRepository.findById(userId).ifPresent(User::incrementFeetCount);
   }
 
   public void updateUsers(GroupDetails groupDetails)

@@ -7,23 +7,33 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SufferHandler extends BaseHandler implements RequestHandler
 {
   private final ArrayList<String> jpgCache = new ArrayList<>();
+  private final Map<String, String> subredditMap = new HashMap<>();
+
+  public SufferHandler()
+  {
+    subredditMap.put("suffer", "MakeMeSuffer");
+    subredditMap.put("beans", "BeansInThings");
+  }
 
   public void handle(GroupMeRequest request)
   {
-    messenger.sendGroupMeMessage(getImage());
+    Matcher matcher = requestPattern.matcher(request.getText());
+    if (matcher.find())
+    {
+      String subreddit = subredditMap.get(matcher.group(1));
+      messenger.sendGroupMeMessage(getImage(subreddit));
+    }
   }
-  private String getImage()
+  private String getImage(String subreddit)
   {
-    String sufferUrl = "https://reddit.com/r/MakeMeSuffer";
+    String sufferUrl = "https://reddit.com/r/" + subreddit;
     HttpEntity<String> httpEntity = new HttpEntity<>(sufferUrl, headers);
     try
     {
@@ -50,7 +60,7 @@ public class SufferHandler extends BaseHandler implements RequestHandler
           else
           {
             jpgCache.add(jpg);
-            if (jpgCache.size() > 14)
+            if (jpgCache.size() > 20)
             {
               jpgCache.remove(jpgCache.size()-1);
             }

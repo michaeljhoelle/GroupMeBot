@@ -21,6 +21,7 @@ public class HandlerConfig
     handlerMap.put("^/suffer\\b", handlerBuilder.sufferHandler());
     handlerMap.put("^/todo\\b", handlerBuilder.todoHandler());
     handlerMap.put("^r/\\w+$", handlerBuilder.subredditHandler());
+    handlerMap.put("^/beans\\b", handlerBuilder.sufferHandler());
   }
 
   public Map<String, RequestHandler> getHandlerMap()

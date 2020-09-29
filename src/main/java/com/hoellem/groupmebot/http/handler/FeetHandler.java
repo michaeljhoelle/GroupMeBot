@@ -15,8 +15,6 @@ import java.util.regex.Pattern;
 
 public class FeetHandler extends BaseHandler implements RequestHandler
 {
-  private static final Pattern parameterPattern = Pattern.compile(" (.+)", Pattern.MULTILINE);
-
   @Override
   public void handle(GroupMeRequest request)
   {

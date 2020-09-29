@@ -12,7 +12,6 @@ import java.util.regex.Pattern;
 public class TodoHandler extends BaseHandler implements RequestHandler
 {
   private TodoRepository todoRepository;
-  private static final Pattern parameterPattern = Pattern.compile(" (.+)", Pattern.MULTILINE);
 
   @Autowired
   public void setTodoRepository(TodoRepository todo)

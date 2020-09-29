@@ -13,12 +13,12 @@ import java.util.regex.Pattern;
 
 public class DayHandler extends BaseHandler implements RequestHandler
 {
-  private static final Pattern parameterPattern = Pattern.compile("^Is (?:it|today) (\\w+)", Pattern.CASE_INSENSITIVE);
+  private static final Pattern dayPattern = Pattern.compile("^Is (?:it|today) (\\w+)", Pattern.CASE_INSENSITIVE);
 
   @Override
   public void handle(GroupMeRequest request)
   {
-    Matcher matcher = parameterPattern.matcher(request.getText());
+    Matcher matcher = dayPattern.matcher(request.getText());
     if (matcher.find())
     {
       String responseText;

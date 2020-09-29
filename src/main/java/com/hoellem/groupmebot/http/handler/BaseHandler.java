@@ -12,11 +12,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
+import java.util.regex.Pattern;
 
 @Component
 public class BaseHandler
 {
   protected static final Logger logger = LoggerFactory.getLogger(GroupMeBotApplication.class);
+  protected static final Pattern parameterPattern = Pattern.compile(" (.+)", Pattern.MULTILINE);
+  protected static final Pattern requestPattern = Pattern.compile("^/(\\w+)\\b", Pattern.MULTILINE);
   protected static HttpHeaders headers;
   protected GroupMeConfig groupMeConfig;
   protected RestTemplate restTemplate;

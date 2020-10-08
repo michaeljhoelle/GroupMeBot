@@ -22,6 +22,7 @@ public class HandlerConfig
     handlerMap.put("^/todo\\b", handlerBuilder.todoHandler());
     handlerMap.put("^r/\\w+$", handlerBuilder.subredditHandler());
     handlerMap.put("^/beans\\b", handlerBuilder.sufferHandler());
+    handlerMap.put("^/feetcount\\b", handlerBuilder.feetHandler());
   }
 
   public Map<String, RequestHandler> getHandlerMap()

@@ -15,6 +15,8 @@ import java.util.regex.Pattern;
 
 public class FeetHandler extends BaseHandler implements RequestHandler
 {
+  private static final Pattern feetCountPattern = Pattern.compile("^/feetcount\\b", Pattern.CASE_INSENSITIVE);
+
   @Override
   public void handle(GroupMeRequest request)
   {
@@ -26,7 +28,14 @@ public class FeetHandler extends BaseHandler implements RequestHandler
 
   private String generateResponse(String text)
   {
-    Matcher matcher = parameterPattern.matcher(text);
+    Matcher matcher;
+    matcher = feetCountPattern.matcher(text);
+    if (matcher.find())
+    {
+      return userService.getFeetCounts();
+    }
+
+    matcher = parameterPattern.matcher(text);
     String response = null, name;
     if (matcher.find())
     {

@@ -13,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +70,18 @@ public class UserService
   public void incrementFeetCount(int userId)
   {
     userRepository.findById(userId).ifPresent(User::incrementFeetCount);
+  }
+
+  @Transactional
+  public String getFeetCounts()
+  {
+    List<User> topFeetUsers = userRepository.getTopFeetCounts();
+    StringBuilder builder = new StringBuilder();
+    for (User user: topFeetUsers)
+    {
+      builder.append(String.format( "%-21s %3s\n", user.getName(), user.getFeetCount() ));
+    }
+    return builder.toString().replaceAll(" ", "_");
   }
 
   public void updateUsers(GroupDetails groupDetails)

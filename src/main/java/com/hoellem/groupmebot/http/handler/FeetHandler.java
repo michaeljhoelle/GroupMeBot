@@ -20,13 +20,12 @@ public class FeetHandler extends BaseHandler implements RequestHandler
   @Override
   public void handle(GroupMeRequest request)
   {
-    String responseText = generateResponse(request.getText());
+    String responseText = generateResponse(request.getText(), request.getUserId());
     String fullResponse = responseText != null ? responseText : "No results ¯\\_(ツ)_/¯";
     messenger.sendGroupMeMessage(fullResponse);
-    userService.incrementFeetCount(request.getUserId());
   }
 
-  private String generateResponse(String text)
+  private String generateResponse(String text, Integer userId)
   {
     Matcher matcher;
     matcher = feetCountPattern.matcher(text);
@@ -34,6 +33,7 @@ public class FeetHandler extends BaseHandler implements RequestHandler
     {
       return userService.getFeetCounts();
     }
+    userService.incrementFeetCount(userId);
 
     matcher = parameterPattern.matcher(text);
     String response = null, name;

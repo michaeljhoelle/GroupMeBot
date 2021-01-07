@@ -7,6 +7,8 @@ import com.hoellem.groupmebot.http.groupme.getgroup.GroupMember;
 import org.springframework.http.ResponseEntity;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -48,9 +50,8 @@ public class DayHandler extends BaseHandler implements RequestHandler
 
   private Boolean isToday(String text)
   {
-    Date date = new Date();
-    SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE");
-    return text.equalsIgnoreCase(dateFormat.format(date));
+    LocalDate date = LocalDate.now(ZoneId.of("-05:00"));
+    return text.equalsIgnoreCase(date.getDayOfWeek().toString());
   }
 
   public Object getUserFirstName(Integer userId, Integer groupId)

@@ -22,7 +22,7 @@ public class HttpController
   private final GroupMeRouter groupMeRouter;
   private final GroupMeClient groupMeClient;
   private final GroupMeConfig groupMeConfig;
-  private static final Pattern duckPattern = Pattern.compile("\\\\_o<", Pattern.MULTILINE);
+  private static final Pattern duckPattern = Pattern.compile("\\\\.*_.*<", Pattern.MULTILINE);
 
   @GetMapping("/error")
   public ErrorResponse error()

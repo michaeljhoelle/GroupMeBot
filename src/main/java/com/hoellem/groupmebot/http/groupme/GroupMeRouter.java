@@ -24,7 +24,7 @@ public class GroupMeRouter
   }
 
   public void handle(GroupMeRequest request) {
-    if (request.getSenderType().equals("user"))
+    if (request.getSenderType() == GroupMeRequest.SenderType.USER)
     {
       RequestHandler handler = getHandler(request.getText());
       if (handler != null)

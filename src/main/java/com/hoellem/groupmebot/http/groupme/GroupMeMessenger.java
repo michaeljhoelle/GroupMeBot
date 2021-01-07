@@ -40,10 +40,10 @@ public class GroupMeMessenger
   {
     if (text != null)
     {
-      GroupMeResponse groupMeResponse = new GroupMeResponse(groupMeConfig.getBotId(), text);
-      HttpEntity<GroupMeResponse> groupMePost = new HttpEntity<>(groupMeResponse, headers);
+      GroupMeBotResponse groupMeBotResponse = new GroupMeBotResponse(groupMeConfig.getBotId(), text);
+      HttpEntity<GroupMeBotResponse> groupMePost = new HttpEntity<>(groupMeBotResponse, headers);
       restTemplate.exchange(baseUrl + postPath, HttpMethod.POST, groupMePost, String.class);
-      logger.info("Posted " + groupMeResponse.toString());
+      logger.info("Posted " + groupMeBotResponse.toString());
     }
   }
 

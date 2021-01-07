@@ -1,7 +1,13 @@
 package com.hoellem.groupmebot.http.groupme;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.Accessors;
 
+@Data
+@RequiredArgsConstructor
+@Accessors(chain = true)
 public class GroupMeRequest
 {
   @JsonProperty("name")
@@ -9,61 +15,23 @@ public class GroupMeRequest
   @JsonProperty("text")
   private String text;
   @JsonProperty("sender_type")
-  private String senderType;
+  private SenderType senderType;
   @JsonProperty("group_id")
   private Integer groupId;
   @JsonProperty("user_id")
   private Integer userId;
 
-  public GroupMeRequest(){}
-
-  public String getName()
+  @RequiredArgsConstructor
+  public enum SenderType
   {
-    return this.name;
-  }
+    BOT("bot"),
+    USER("user");
 
-  public void setName(String name)
-  {
-    this.name = name;
-  }
-
-  public String getText()
-  {
-    return this.text;
-  }
-
-  public void setText(String text)
-  {
-    this.text = text;
-  }
-
-  public String getSenderType()
-  {
-    return this.senderType;
-  }
-
-  public void setSenderType(String senderType)
-  {
-    this.senderType = senderType;
-  }
-
-  public Integer getGroupId()
-  {
-    return this.groupId;
-  }
-
-  public void setGroupId(Integer groupId)
-  {
-    this.groupId = groupId;
-  }
-
-  public Integer getUserId()
-  {
-    return userId;
-  }
-
-  public void setUserId(Integer userId)
-  {
-    this.userId = userId;
+    private final String name;
+    @Override
+    public String toString()
+    {
+      return name;
+    }
   }
 }

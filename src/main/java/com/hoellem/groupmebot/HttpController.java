@@ -34,11 +34,13 @@ public class HttpController
   @ResponseStatus(HttpStatus.OK)
   public void groupMePost(@RequestBody GroupMeRequest request)
   {
+    /*
     Matcher matcher = duckPattern.matcher(request.getText());
     if (request.getSenderType() == GroupMeRequest.SenderType.BOT && matcher.find()) {
       GroupMeUserResponse body = new GroupMeUserResponse(UUID.randomUUID().toString(), "/bang");
       groupMeClient.sendMessage(groupMeConfig.getAccessToken(), groupMeConfig.getUserAgent(), request.getGroupId(), body);
     }
+    */
     groupMeRouter.handle(request);
   }
 }

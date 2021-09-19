@@ -1,10 +1,17 @@
 package com.hoellem.groupmebot.http.handler;
 
+import com.hoellem.groupmebot.client.GroupMeMessenger;
 import com.hoellem.groupmebot.http.RequestHandler;
-import com.hoellem.groupmebot.http.groupme.GroupMeRequest;
+import com.hoellem.groupmebot.model.groupme.GroupMeRequest;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
-public class ClsHandler extends BaseHandler implements RequestHandler
+@Service
+@RequiredArgsConstructor
+public class ClsHandler implements RequestHandler
 {
+  private final GroupMeMessenger messenger;
+
   @Override
   public void handle(GroupMeRequest request)
   {

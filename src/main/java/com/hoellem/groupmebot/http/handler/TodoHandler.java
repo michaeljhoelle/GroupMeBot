@@ -1,16 +1,21 @@
 package com.hoellem.groupmebot.http.handler;
 
-import com.hoellem.groupmebot.http.datasource.todo.TodoRepository;
-import com.hoellem.groupmebot.http.datasource.todo.Todo;
+import com.hoellem.groupmebot.client.GroupMeMessenger;
+import com.hoellem.groupmebot.repository.todo.TodoRepository;
+import com.hoellem.groupmebot.repository.todo.Todo;
 import com.hoellem.groupmebot.http.RequestHandler;
-import com.hoellem.groupmebot.http.groupme.GroupMeRequest;
+import com.hoellem.groupmebot.model.groupme.GroupMeRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class TodoHandler extends BaseHandler implements RequestHandler
+@Service
+@RequiredArgsConstructor
+public class TodoHandler implements RequestHandler
 {
+  private final GroupMeMessenger messenger;
   private TodoRepository todoRepository;
 
   @Autowired

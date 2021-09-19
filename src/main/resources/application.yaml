@@ -1,0 +1,30 @@
+groupme:
+  bot-id: 18751eb77b6a71d764ddfd1101
+  days: Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday
+
+spring:
+  datasource:
+    url: jdbc:mysql://mikebot-db.cgttc9wh2ocu.us-east-2.rds.amazonaws.com:3306/mikebot_db
+    jpa:
+      show-sql: false
+      hibernate:
+        naming:
+          implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: michaeljhoelle
+    password: AbsolutelyNot69
+  jackson:
+    mapper:
+      accept-case-insensitive-enums: true
+      accept-case-insensitive-properties: true
+      accept-case-insensitive-values: true
+
+reddit:
+  auth:
+    client-authorization: ${REDDIT_CLIENT_AUTHORIZATION}
+    username: ${REDDIT_USERNAME}
+    password: ${REDDIT_PASSWORD}
+
+logging:
+  level:
+    com.hoellem.groupmebot.client: INFO

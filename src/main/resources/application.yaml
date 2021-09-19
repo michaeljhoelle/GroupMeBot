@@ -1,5 +1,5 @@
 groupme:
-  bot-id: 18751eb77b6a71d764ddfd1101
+  bot-id: ${BOT_ID}
   days: Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday
 
 spring:
@@ -11,8 +11,8 @@ spring:
         naming:
           implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: michaeljhoelle
-    password: AbsolutelyNot69
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
   jackson:
     mapper:
       accept-case-insensitive-enums: true

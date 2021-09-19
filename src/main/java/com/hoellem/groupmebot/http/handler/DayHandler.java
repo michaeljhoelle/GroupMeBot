@@ -1,19 +1,27 @@
 package com.hoellem.groupmebot.http.handler;
 
+import com.hoellem.groupmebot.client.GroupMeMessenger;
+import com.hoellem.groupmebot.config.GroupMeConfig;
 import com.hoellem.groupmebot.http.RequestHandler;
-import com.hoellem.groupmebot.http.groupme.GroupMeRequest;
-import com.hoellem.groupmebot.http.groupme.getgroup.FindGroupDetailsResponse;
-import com.hoellem.groupmebot.http.groupme.getgroup.GroupMember;
+import com.hoellem.groupmebot.model.groupme.GroupMeRequest;
+import com.hoellem.groupmebot.model.groupme.FindGroupDetailsResponse;
+import com.hoellem.groupmebot.model.groupme.GroupMember;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DayHandler extends BaseHandler implements RequestHandler
+@Service
+@RequiredArgsConstructor
+public class DayHandler implements RequestHandler
 {
   private static final Pattern dayPattern = Pattern.compile("^Is (?:it|today) (\\w+)", Pattern.CASE_INSENSITIVE);
+  private final GroupMeMessenger messenger;
+  private final GroupMeConfig groupMeConfig;
 
   @Override
   public void handle(GroupMeRequest request)

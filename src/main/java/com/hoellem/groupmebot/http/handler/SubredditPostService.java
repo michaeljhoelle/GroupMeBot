@@ -8,6 +8,7 @@ import com.hoellem.groupmebot.model.reddit.Subreddit;
 import com.hoellem.groupmebot.model.reddit.SubredditResponseWrapper;
 import com.hoellem.groupmebot.model.repository.SubredditUrl;
 import com.hoellem.groupmebot.repository.SubredditUrlRepository;
+import com.hoellem.groupmebot.util.ResponseUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -51,6 +52,7 @@ public class SubredditPostService implements RequestHandler
       List<SubredditResponseWrapper> posts = wrapper.getData().getChildren();
       List<String> urls = posts.stream()
               .filter(post -> StringUtils.isEmpty(post.getData().getSelftext()))
+              .filter(post -> !post.getData().getUrl().contains("v.redd.it"))
               .map(post -> post.getData().getUrl())
               .collect(Collectors.toList());
       Collections.shuffle(urls);
@@ -69,13 +71,18 @@ public class SubredditPostService implements RequestHandler
           return;
         }
       }
+      messenger.sendGroupMeMessage(ResponseUtils.getStaleResponse());
     }
   }
 
   private void postMessages(List<SubredditResponseWrapper> posts, String url) {
-    String title = posts.stream().filter(post -> url.equals(post.getData().getUrl())).findFirst().get().getData().getTitle();
-    messenger.sendGroupMeMessage(title);
-    messenger.sendGroupMeMessage(url);
+    SubredditResponseWrapper response = posts.stream().filter(post -> url.equals(post.getData().getUrl())).findFirst().get();
+    messenger.sendGroupMeMessage(response.getData().getTitle());
+    if (response.getData().getMediaMetadataMap() != null) {
+      response.getData().getMediaMetadataMap().forEach((image, metadata) -> messenger.sendGroupMeMessage(metadata.getSource().getUrl().replace("amp;", "")));
+    } else {
+      messenger.sendGroupMeMessage(url);
+    }
   }
 
 }

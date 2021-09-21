@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
 import java.util.regex.Pattern;
 
 @Data
@@ -43,7 +44,7 @@ public class GroupmeController
   }
 
   @GetMapping
-  public void test() {
-    groupMeService.testRedditApi();
+  public Set<String> test() {
+    return groupMeService.testRedditApi();
   }
 }

@@ -5,12 +5,15 @@ import com.hoellem.groupmebot.http.RequestHandler;
 import com.hoellem.groupmebot.http.handler.*;
 import com.hoellem.groupmebot.model.groupme.Command;
 import com.hoellem.groupmebot.model.groupme.GroupMeRequest;
+import com.hoellem.groupmebot.model.reddit.SubredditResponseWrapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Component
 @Slf4j
@@ -65,7 +68,13 @@ public class GroupMeService implements RequestHandler
     handler.handle(request);
   }
 
-  public void testRedditApi() {
-    log.debug(redditClient.getHotSuffering().toString());
+  public Set<String> testRedditApi() {
+    return redditClient.getHotSuffering()
+            .getData()
+            .getChildren()
+            .stream()
+            .map(SubredditResponseWrapper::getData)
+            .map(SubredditResponseWrapper.SubredditResponse::getUrl)
+            .collect(Collectors.toSet());
   }
 }

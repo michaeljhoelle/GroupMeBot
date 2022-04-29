@@ -2,8 +2,6 @@ package com.hoellem.groupmebot.config;
 
 import com.hoellem.groupmebot.model.groupme.FindGroupDetailsResponse;
 import feign.form.spring.SpringFormEncoder;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.ObjectFactory;

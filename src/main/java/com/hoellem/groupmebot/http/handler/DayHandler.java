@@ -18,6 +18,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +26,6 @@ public class DayHandler implements RequestHandler
 {
   private static final Pattern dayPattern = Pattern.compile("^Is (?:it|today) (\\w+)", Pattern.CASE_INSENSITIVE);
   private final GroupMeMessenger messenger;
-  private final GroupMeConfig groupMeConfig;
 
   @Override
   public void handle(GroupMeRequest request)
@@ -43,7 +43,7 @@ public class DayHandler implements RequestHandler
     ZonedDateTime now = LocalDateTime.now().atZone(ZoneId.of("-04:00"));
     TextStyle textStyle = TextStyle.FULL;
     Locale locale = Locale.US;
-    return Set.of(
+    return Stream.of(
             "now",
             now.getYear(),
             now.getMonth().getDisplayName(textStyle, locale),
@@ -54,9 +54,8 @@ public class DayHandler implements RequestHandler
             now.getMonth().getDisplayName(TextStyle.SHORT, locale) + " the " + now.getDayOfMonth() + getDayOfMonthSuffix(now.getDayOfMonth()),
             now.getDayOfWeek().getDisplayName(textStyle, locale)
             )
-            .stream()
             .map(String::valueOf)
-            .collect(Collectors.toSet());
+            .collect(Collectors.toList());
   }
 
   private String getDayOfMonthSuffix(final int n) {

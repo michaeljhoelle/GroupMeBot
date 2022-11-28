@@ -40,4 +40,11 @@ class DayHandlerTest {
         dayHandler.handle(new GroupMeRequest().setText("is it " + testText + "?"));
         verify(messenger, times(1)).sendGroupMeMessage("Yes");
     }
+
+    @Test
+    void handleNotToday() {
+        String testText = "the " + LocalDate.now().getDayOfMonth() + dayHandler.getDayOfMonthSuffix(LocalDate.now().getDayOfMonth());
+        dayHandler.handle(new GroupMeRequest().setText("is it another day?"));
+        verify(messenger, times(1)).sendGroupMeMessage("No");
+    }
 }

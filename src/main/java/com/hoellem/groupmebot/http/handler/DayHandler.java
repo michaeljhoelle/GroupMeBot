@@ -7,6 +7,7 @@ import com.hoellem.groupmebot.model.groupme.GroupMeRequest;
 import com.hoellem.groupmebot.model.groupme.FindGroupDetailsResponse;
 import com.hoellem.groupmebot.model.groupme.GroupMember;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +22,12 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class DayHandler implements RequestHandler
 {
-  private static final Pattern dayPattern = Pattern.compile("^Is (?:it|today) ([a-zA-Z\\d_ ]+)", Pattern.CASE_INSENSITIVE);
+  private static final Pattern dayPattern = Pattern.compile("^Is (?:it|today) ([a-zA-Z\\d_ ]+)\\??", Pattern.CASE_INSENSITIVE);
   private final GroupMeMessenger messenger;
 
   @Override
@@ -62,7 +64,7 @@ public class DayHandler implements RequestHandler
             .collect(Collectors.toList());
   }
 
-  private String getDayOfMonthSuffix(final int n) {
+  protected String getDayOfMonthSuffix(final int n) {
     if (n >= 11 && n <= 13) {
       return "th";
     }
@@ -76,6 +78,7 @@ public class DayHandler implements RequestHandler
 
   private Boolean isToday(String text)
   {
+    log.info("Testing text for todayness: " + text);
     for (String test : validCurrentTimes()) {
       if (text.equalsIgnoreCase(test)) {
         return true;

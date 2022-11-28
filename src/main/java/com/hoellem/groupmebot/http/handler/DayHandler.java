@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.Collection;
 import java.util.Locale;
@@ -24,7 +25,7 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 public class DayHandler implements RequestHandler
 {
-  private static final Pattern dayPattern = Pattern.compile("^Is (?:it|today) (\\w+)", Pattern.CASE_INSENSITIVE);
+  private static final Pattern dayPattern = Pattern.compile("^Is (?:it|today) ([a-zA-Z\\d_ ]+)", Pattern.CASE_INSENSITIVE);
   private final GroupMeMessenger messenger;
 
   @Override
@@ -39,8 +40,8 @@ public class DayHandler implements RequestHandler
     }
   }
 
-  private Collection<String> validCurrentTimes() {
-    ZonedDateTime now = LocalDateTime.now().atZone(ZoneId.of("-04:00"));
+  protected Collection<String> validCurrentTimes() {
+    ZonedDateTime now = LocalDateTime.now().atZone(ZoneId.of("-05:00"));
     TextStyle textStyle = TextStyle.FULL;
     Locale locale = Locale.US;
     return Stream.of(
@@ -52,7 +53,10 @@ public class DayHandler implements RequestHandler
             now.getMonth().getDisplayName(TextStyle.SHORT, locale) + " " + now.getDayOfMonth() + getDayOfMonthSuffix(now.getDayOfMonth()),
             now.getMonth().getDisplayName(textStyle, locale) + " the " + now.getDayOfMonth() + getDayOfMonthSuffix(now.getDayOfMonth()),
             now.getMonth().getDisplayName(TextStyle.SHORT, locale) + " the " + now.getDayOfMonth() + getDayOfMonthSuffix(now.getDayOfMonth()),
-            now.getDayOfWeek().getDisplayName(textStyle, locale)
+            now.getDayOfWeek().getDisplayName(textStyle, locale),
+            now.format(DateTimeFormatter.ISO_LOCAL_DATE),
+            now.getMonthValue() + "/" + now.getDayOfMonth() + "/" + now.getYear(),
+            now.getHour() + ":" + now.getMinute()
             )
             .map(String::valueOf)
             .collect(Collectors.toList());

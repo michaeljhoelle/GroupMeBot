@@ -69,7 +69,7 @@ public class GroupMeService implements RequestHandler
   }
 
   public Set<String> testRedditApi() {
-    return redditClient.getHotSuffering()
+    return redditClient.getHot("MakeMeSuffer")
             .getData()
             .getChildren()
             .stream()

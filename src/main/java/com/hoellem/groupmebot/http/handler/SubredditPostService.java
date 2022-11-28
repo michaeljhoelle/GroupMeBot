@@ -37,17 +37,7 @@ public class SubredditPostService implements RequestHandler
   }
 
   private void sendImageUrl(Subreddit subreddit) {
-    SubredditResponseWrapper wrapper;
-    switch (subreddit) {
-      case SUFFER:
-        wrapper = redditClient.getHotSuffering();
-        break;
-      case BEANS:
-        wrapper = redditClient.getHotBeans();
-        break;
-      default:
-        wrapper = null;
-    }
+    SubredditResponseWrapper wrapper = redditClient.getHot(subreddit.getSubreddit());
     if (wrapper != null) {
       List<SubredditResponseWrapper> posts = wrapper.getData().getChildren();
       List<String> urls = posts.stream()

@@ -3,6 +3,7 @@ package com.hoellem.groupmebot.http.handler;
 import com.hoellem.groupmebot.client.GroupMeMessenger;
 import com.hoellem.groupmebot.config.GroupMeConfig;
 import com.hoellem.groupmebot.http.RequestHandler;
+import com.hoellem.groupmebot.model.groupme.Command;
 import com.hoellem.groupmebot.model.groupme.GroupMeRequest;
 import com.hoellem.groupmebot.model.groupme.FindGroupDetailsResponse;
 import com.hoellem.groupmebot.model.groupme.GroupMember;
@@ -27,7 +28,7 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 public class DayHandler implements RequestHandler
 {
-  private static final Pattern dayPattern = Pattern.compile("^Is (?:it|today) ([a-zA-Z\\d_ ]+)\\??", Pattern.CASE_INSENSITIVE);
+  private static final Pattern dayPattern = Pattern.compile(Command.TODAY.getPatterns().get(0), Pattern.CASE_INSENSITIVE);
   private final GroupMeMessenger messenger;
 
   @Override

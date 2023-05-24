@@ -25,6 +25,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.hoellem.groupmebot.util.ResponseUtils.MIKES_USER_ID;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -34,7 +36,9 @@ public class DebugDayHandler implements RequestHandler {
 
     @Override
     public void handle(GroupMeRequest request) {
-        String responseText = String.join("\n", new HashSet<>(dayHandler.validCurrentTimes()));
-        messenger.sendGroupMeMessage(responseText);
+        if (request.getUserId().equals(MIKES_USER_ID)) {
+            String responseText = String.join("\n", new HashSet<>(dayHandler.validCurrentTimes()));
+            messenger.sendGroupMeMessage(responseText);
+        }
     }
 }

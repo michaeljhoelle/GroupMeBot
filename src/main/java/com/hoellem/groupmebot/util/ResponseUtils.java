@@ -18,4 +18,6 @@ public class ResponseUtils
     public static String getStaleResponse() {
         return staleResponses.get(random.nextInt(staleResponses.size()));
     }
+
+    public final static int MIKES_USER_ID = 13271487;
 }

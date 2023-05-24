@@ -17,6 +17,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.StringJoiner;
 import java.util.regex.Matcher;
@@ -33,7 +34,7 @@ public class DebugDayHandler implements RequestHandler {
 
     @Override
     public void handle(GroupMeRequest request) {
-        String responseText = String.join("\n", dayHandler.validCurrentTimes());
+        String responseText = String.join("\n", new HashSet<>(dayHandler.validCurrentTimes()));
         messenger.sendGroupMeMessage(responseText);
     }
 }

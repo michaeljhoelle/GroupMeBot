@@ -27,6 +27,7 @@ public class GroupMeService implements RequestHandler
   private final SubredditHandler subredditHandler;
   private final SubredditPostService subredditPostService;
   private final TodoHandler todoHandler;
+  private final DebugDayHandler debugDayHandler;
 
   public void handle(GroupMeRequest request) {
     if (GroupMeRequest.SenderType.USER.equals(request.getSenderType())) {
@@ -49,6 +50,9 @@ public class GroupMeService implements RequestHandler
         break;
       case TODAY:
         handler = dayHandler;
+        break;
+      case DEBUG_TODAY:
+        handler = debugDayHandler;
         break;
       case FEET:
         handler = feetHandler;

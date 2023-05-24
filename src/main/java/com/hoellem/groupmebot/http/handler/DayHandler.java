@@ -40,7 +40,7 @@ public class DayHandler implements RequestHandler {
         }
     }
 
-    protected Collection<String> validCurrentTimes() {
+    public Collection<String> validCurrentTimes() {
         ZonedDateTime now = LocalDateTime.now().atZone(ZoneId.of("-05:00"));
         TextStyle textStyle = TextStyle.FULL;
         Locale locale = Locale.US;

@@ -28,16 +28,12 @@ import java.util.stream.Stream;
 @Service
 @RequiredArgsConstructor
 public class DebugDayHandler implements RequestHandler {
-    private static final Pattern dayPattern = Pattern.compile(Command.TODAY.getPatterns().get(0), Pattern.CASE_INSENSITIVE);
     private final GroupMeMessenger messenger;
     private final DayHandler dayHandler;
 
     @Override
     public void handle(GroupMeRequest request) {
-        Matcher matcher = dayPattern.matcher(request.getText());
-        if (matcher.find()) {
-            String responseText = String.join("\n", dayHandler.validCurrentTimes());
-            messenger.sendGroupMeMessage(responseText);
-        }
+        String responseText = String.join("\n", dayHandler.validCurrentTimes());
+        messenger.sendGroupMeMessage(responseText);
     }
 }

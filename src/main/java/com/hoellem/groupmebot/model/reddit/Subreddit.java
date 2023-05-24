@@ -3,10 +3,6 @@ package com.hoellem.groupmebot.model.reddit;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.Set;
-
 @Getter
 @RequiredArgsConstructor
 public enum Subreddit
